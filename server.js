@@ -11,6 +11,11 @@ let serverPort = process.env.PORT || 3000;
 //recuperamos nosso arquivo de rotas
 let user = require("./app/route/user");
  
+//http://stackoverflow.com/a/41837255
+//bluebird foi adicionado devido ao erro "DeprecationWarning:
+//Mongoose: mpromise (mongoose's default promise library)"
+mongoose.Promise = require('bluebird');
+
 //conectamos ao banco de dados
 mongoose.connect(dbConfig.connectionString);
 mongoose.connection.on("error", console.error.bind(console, 
