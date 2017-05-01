@@ -49,4 +49,32 @@ describe("Create user", function(){
  
     });
   });
+
+  it("it should not create a invalid user", function(done){
+ 
+    //criamos o user sem o birthDate
+    let user = {
+      name: "Bedrick Prokop", email: "bedrickp@gmail.com", 
+      gender: "Male"};
+ 
+    //e fazemos a requisição
+    chai.request(server)
+    .post("/user")
+    .send(user)
+    .end(function(error, response) {
+ 
+      //definimos o status como 500 pois esperamos um erro
+      //do servidor
+      response.should.have.status(500);
+      response.body.should.be.a("object");
+       
+      //esperamos uma mensagem de erro no body
+      response.body.should.have.property("message")
+        .eql("User validation failed!");
+ 
+      done();
+    });
+ 
+  });
+
 });
