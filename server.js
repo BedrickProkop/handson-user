@@ -34,7 +34,13 @@ app.get("/", function(request, response){
 //parametro do post o método save que será criado no arquivo 
 //de rotas
 app.route("/user")
- .post(user.save);
+ .post(user.save)
+ .get(user.findAll);
+
+app.route("/user/:id")
+  .get(user.findById)
+  .put(user.update)
+  .delete(user.remove);
  
 //fazemos com que a aplicação execute na porta definida acima
 app.listen(serverPort);
